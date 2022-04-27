@@ -1,7 +1,9 @@
 package com.lderic.mcbridge.plugin
 
+import com.lderic.mcbridge.util.forEachLaunch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.joinAll
 import kotlin.concurrent.thread
 
 val pluginDir = "${System.getProperty("user.dir")}/plugins"
@@ -13,11 +15,10 @@ internal object Plugins {
     private val loader = PluginLoader
     private val preloader = PluginPreloader
 
-
-    fun load() {
+    fun reload() {
         thread(name = "Plugin Load Thread", isDaemon = true) {
             val entrypoints = loader.loadPlugins(preloader.preload())
-            entrypoints.forEach {
+            entrypoints.forEachLaunch(pluginScope) {
                 it.onLoad()
             }
         }
