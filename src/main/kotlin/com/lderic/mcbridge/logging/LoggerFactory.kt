@@ -1,8 +1,6 @@
 package com.lderic.mcbridge.logging
 
-import com.lderic.mcbridge.api.Logger
-
-internal interface LoggerFactory {
+public interface LoggerFactory {
     fun getLogger(name: String): Logger
 
     fun getLogger(clazz: Class<*>): Logger

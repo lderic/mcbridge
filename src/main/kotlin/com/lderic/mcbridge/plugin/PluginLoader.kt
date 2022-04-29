@@ -1,6 +1,5 @@
 package com.lderic.mcbridge.plugin
 
-import com.lderic.mcbridge.api.PluginEntryPoint
 import com.lderic.mcbridge.util.forEachLaunch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

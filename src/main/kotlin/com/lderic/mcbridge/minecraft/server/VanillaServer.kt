@@ -1,9 +1,24 @@
-package com.lderic.mcbridge.minecraft
+package com.lderic.mcbridge.minecraft.server
 
-import com.lderic.mcbridge.api.Server
+import com.lderic.mcbridge.logging.Logger
+import com.lderic.mcbridge.logging.LoggerFactory
+import com.lderic.mcbridge.minecraft.text.Text
+import com.lderic.mcbridge.minecraft.text.TextChain
 
-class ServerImpl : Server {
+internal object VanillaServer : Server {
+    private val serverLogger = LoggerFactory.getLogger("Server")
+
+    override fun getLogger(): Logger = serverLogger
+
     override fun broadcastMessage(message: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun broadcastMessage(message: Text?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun broadcastMessage(message: TextChain?) {
         TODO("Not yet implemented")
     }
 
@@ -11,7 +26,15 @@ class ServerImpl : Server {
         TODO("Not yet implemented")
     }
 
-    override fun sendCommand(command: String?) {
+    override fun sendMessage(message: Text?, player: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun sendMessage(message: TextChain?, player: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun send(command: String?) {
         TODO("Not yet implemented")
     }
 
@@ -20,10 +43,6 @@ class ServerImpl : Server {
     }
 
     override fun getMaxPlayers(): Int {
-        TODO("Not yet implemented")
-    }
-
-    override fun setMaxPlayers(maxPlayers: Int) {
         TODO("Not yet implemented")
     }
 
@@ -51,10 +70,6 @@ class ServerImpl : Server {
         TODO("Not yet implemented")
     }
 
-    override fun setMotd(motd: String?) {
-        TODO("Not yet implemented")
-    }
-
     override fun getMotd(): String {
         TODO("Not yet implemented")
     }
@@ -68,10 +83,6 @@ class ServerImpl : Server {
     }
 
     override fun isOp(playerName: String?): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun setWhitelist(playerName: String?) {
         TODO("Not yet implemented")
     }
 

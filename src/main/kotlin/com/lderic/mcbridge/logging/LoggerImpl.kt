@@ -1,7 +1,5 @@
 package com.lderic.mcbridge.logging
 
-import com.lderic.mcbridge.api.Logger
-
 
 internal class LoggerImpl(private val name: String) : Logger {
     override fun info(message: Any) {
