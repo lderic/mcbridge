@@ -39,6 +39,8 @@ object MCBridgeProperty {
         get() = properties.getProperty(PLUGIN_PATH)
     val startCommand: String
         get() = properties.getProperty(START_COMMAND)
+    val userDir: String
+        get() = System.getProperty("user.dir")
 
     operator fun get(key: String): String = properties.getProperty(key)
 }
