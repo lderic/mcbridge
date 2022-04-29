@@ -3,6 +3,10 @@ plugins
 server
 mcbridge.properties
 
+### Main ###
+!src/main/java/com/lderic/mcbridge/minecraft/server
+!src/main/kotlin/com/lderic/mcbridge/minecraft/server/
+
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
