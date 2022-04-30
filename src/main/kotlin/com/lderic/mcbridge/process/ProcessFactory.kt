@@ -1,8 +1,8 @@
 package com.lderic.mcbridge.process
 
+import com.lderic.mcbridge.MCBridgeProperties
+import com.lderic.mcbridge.MCBridgeProperties.pluginPath
 import com.lderic.mcbridge.plugin.pluginCompiledDir
-import com.lderic.mcbridge.plugin.pluginDir
-import com.lderic.mcbridge.util.MCBridgeProperty.startCommand
 import java.io.File
 
 fun compileProcess(name: String): Process {
@@ -14,12 +14,12 @@ fun compileProcess(name: String): Process {
         pluginCompiledDir,
         name
     )
-        .directory(File(pluginDir))
+        .directory(File(pluginPath))
         .redirectErrorStream(true)
         .start()
 }
 
-fun launchMinecraft() {
-    val commands = startCommand.split(" ")
-    MCProcess(commands)
+fun launchMinecraft(): MCProcess? {
+    val commands = MCBridgeProperties.startCommand?.split(" ") ?: return null
+    return MCProcess(ProcessBuilder(commands).directory(File(MCBridgeProperties.serverPath)))
 }
