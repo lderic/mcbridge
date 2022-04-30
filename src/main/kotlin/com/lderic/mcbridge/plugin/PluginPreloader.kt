@@ -1,5 +1,6 @@
 package com.lderic.mcbridge.plugin
 
+import com.lderic.mcbridge.MCBridgeProperties
 import com.lderic.mcbridge.process.compileProcess
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,7 +37,7 @@ internal object PluginPreloader {
                         println("Plugin ${plugin.name} compiled failed")
                     } else {
                         println("Plugin ${plugin.name} compiled successfully")
-                        entrypoints.add(File("$pluginDir/$pluginCompiledDir/${plugin.nameWithoutExtension}.class"))
+                        entrypoints.add(File("${MCBridgeProperties.pluginPath}/$pluginCompiledDir/${plugin.nameWithoutExtension}.class"))
                     }
                 }
             }
@@ -46,11 +47,13 @@ internal object PluginPreloader {
 
     private fun loadSourceFiles() {
         println("Loading plugins in thread ${Thread.currentThread().name}")
-        File(pluginDir).listFiles()?.forEach {
-            if (it.isDirectory) {
-                loadMultipleFilePlugin(it)
-            } else if (it.extension == "java") {
-                loadSingleFilePlugin(it)
+        MCBridgeProperties.pluginDir?.let {
+            File(it).listFiles()?.forEach {
+                if (it.isDirectory) {
+                    loadMultipleFilePlugin(it)
+                } else if (it.extension == "java") {
+                    loadSingleFilePlugin(it)
+                }
             }
         } ?: throw Exception("No access to plugin directory")
     }

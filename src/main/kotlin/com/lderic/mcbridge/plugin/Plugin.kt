@@ -1,13 +1,10 @@
 package com.lderic.mcbridge.plugin
 
-import com.lderic.mcbridge.util.MCBridgeProperty
 import com.lderic.mcbridge.util.forEachLaunch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.joinAll
 import kotlin.concurrent.thread
 
-val pluginDir = "${MCBridgeProperty.userDir}/${MCBridgeProperty.pluginPath}"
 const val pluginCompiledDir = ".plugin_classes"
 internal val pluginLoaderScope = CoroutineScope(Dispatchers.IO)
 internal val pluginScope = CoroutineScope(Dispatchers.IO)
