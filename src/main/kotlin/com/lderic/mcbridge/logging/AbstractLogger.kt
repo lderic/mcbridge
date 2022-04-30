@@ -1,17 +1,19 @@
 package com.lderic.mcbridge.logging
 
+import com.lderic.mcbridge.console.Console
+
 
 internal abstract class AbstractLogger(private val name: String) : Logger {
     override fun info(message: Any?) {
-        SystemIO.out.println("[$name] ${pattern("INFO")} $message")
+        Console.getInstance().write("[$name] ${pattern("INFO")} $message")
     }
 
     override fun warn(message: Any?) {
-        SystemIO.out.println("[$name] ${pattern("WARN")} $message")
+        Console.getInstance().write("[$name] ${pattern("WARN")} $message")
     }
 
     override fun error(message: Any?) {
-        SystemIO.err.println("[$name] ${pattern("ERROR")} $message")
+        Console.getInstance().write("[$name] ${pattern("ERROR")} $message")
     }
 
     /**
