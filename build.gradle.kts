@@ -19,7 +19,7 @@ dependencies {
 
 tasks.jar {
     manifest {
-        attributes(Pair("Main-Class", "com.lderic.mcbridge.MainKt"))
+        attributes(Pair("Main-Class", "com.lderic.mcbridge.MCBridge"))
     }
 }
 
