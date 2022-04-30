@@ -10,6 +10,5 @@ public class SystemIO {
 
     public static void redirectStream() {
         System.setOut(LoggingOutputStream.out);
-        System.setErr(LoggingErrorStream.err);
     }
 }

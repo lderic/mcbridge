@@ -1,12 +1,15 @@
 package com.lderic.mcbridge.logging;
 
-import com.lderic.mcbridge.util.MCBridgeProperty;
+import com.lderic.mcbridge.MCBridgeProperties;
 
 public class LoggerFactory {
     static {
         SystemIO.redirectStream();
     }
 
+    /**
+     * Notes that the logger might be null if logger type in mcbridge.properties is not set.
+     */
     public static Logger getLogger(String name) {
         return selectLogger(name);
     }
@@ -23,7 +26,12 @@ public class LoggerFactory {
         if (name.equals("Minecraft")) {
             return MinecraftLogger.INSTANCE;
         }
-        switch (MCBridgeProperty.INSTANCE.getLoggerPatternType().toLowerCase()) {
+        String type = MCBridgeProperties.INSTANCE.getLoggerPatternType();
+
+        if (type == null) {
+            return null;
+        }
+        switch (type) {
             default -> {
                 return new VanillaLogger(name);
             }
