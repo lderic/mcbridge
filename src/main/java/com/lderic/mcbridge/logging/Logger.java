@@ -6,6 +6,4 @@ public interface Logger {
     void warn(Object msg);
 
     void error(Object msg);
-
-    void debug(Object msg);
 }
