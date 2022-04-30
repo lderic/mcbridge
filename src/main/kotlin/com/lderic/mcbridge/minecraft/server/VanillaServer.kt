@@ -6,7 +6,7 @@ import com.lderic.mcbridge.minecraft.text.Text
 import com.lderic.mcbridge.minecraft.text.TextChain
 
 internal object VanillaServer : Server {
-    private val serverLogger = LoggerFactory.getLogger("Server")
+    private val serverLogger = LoggerFactory.getMinecraftLogger()
 
     override fun getLogger(): Logger = serverLogger
 

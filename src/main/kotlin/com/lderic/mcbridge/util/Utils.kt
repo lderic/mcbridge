@@ -1,5 +1,7 @@
 package com.lderic.mcbridge.util
 
+import com.lderic.mcbridge.logging.Logger
+import com.lderic.mcbridge.logging.VanillaLogger
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -25,4 +27,3 @@ public inline fun <T, R> Iterable<T>.forEachAsync(
         coroutineScope.async(context, start) { action(it) }
     }
 }
-

@@ -1,15 +1,16 @@
 package com.lderic.mcbridge.process
 
-import org.jline.terminal.TerminalBuilder
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import kotlin.concurrent.thread
 
 class MCProcess constructor(
-    private val processBuilder: ProcessBuilder
+    command: List<String>
 ) {
+    private val processBuilder: ProcessBuilder
+
     init {
-        TerminalBuilder.builder().system(true).build()
+        processBuilder = ProcessBuilder(command)
     }
 
     private lateinit var process: Process

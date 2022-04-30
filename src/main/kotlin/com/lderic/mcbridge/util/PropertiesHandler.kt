@@ -19,6 +19,7 @@ object MCBridgeProperty {
             mcbridgeProperties.setProperty(SERVER_PATH, "server/")
             mcbridgeProperties.setProperty(PLUGIN_PATH, "plugins/")
             mcbridgeProperties.setProperty(START_COMMAND, "java -Xms1G -Xmx2G -jar server.jar")
+            mcbridgeProperties.setProperty(LOGGER_PATTERN_TYPE, "vanilla")
             launch(Dispatchers.IO) {
                 mcbridgeProperties.store(mcbridgePropertiesFile.bufferedWriter(), null)
             }
@@ -30,6 +31,7 @@ object MCBridgeProperty {
             checkPropertyExist(SERVER_PATH)
             checkPropertyExist(PLUGIN_PATH)
             checkPropertyExist(START_COMMAND)
+            checkPropertyExist(LOGGER_PATTERN_TYPE)
         }
     }
 
@@ -39,6 +41,8 @@ object MCBridgeProperty {
         get() = properties.getProperty(PLUGIN_PATH)
     val startCommand: String
         get() = properties.getProperty(START_COMMAND)
+    val loggerPatternType: String
+        get() = properties.getProperty(LOGGER_PATTERN_TYPE)
     val userDir: String
         get() = System.getProperty("user.dir")
 
@@ -48,6 +52,7 @@ object MCBridgeProperty {
 private const val SERVER_PATH = "server_path"
 private const val PLUGIN_PATH = "plugin_path"
 private const val START_COMMAND = "start_command"
+private const val LOGGER_PATTERN_TYPE = "logger_pattern"
 
 class PropertiesHandler constructor(
     private val propertiesFile: File,
