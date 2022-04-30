@@ -4,7 +4,7 @@ import com.lderic.mcbridge.MCBridge;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
-class Console {
+public class Console {
     private static final Console INSTANCE = new Console();
     private LineHandler lineHandler;
 
@@ -24,11 +24,11 @@ class Console {
         return INSTANCE;
     }
 
-    public void println(String msg) {
-        lineHandler.println(msg);
+    public void write(Object msg) {
+        lineHandler.write(msg);
     }
 
-    public void readLine() {
-        lineHandler.readLine();
+    public String readLine() {
+        return lineHandler.readLine();
     }
 }

@@ -1,5 +1,7 @@
 package com.lderic.mcbridge.console;
 
+import com.lderic.mcbridge.logging.SystemIO;
+
 import java.util.Scanner;
 
 public class DefaultLineHandler implements LineHandler {
@@ -14,7 +16,7 @@ public class DefaultLineHandler implements LineHandler {
     }
 
     @Override
-    public void println(String line) {
-        System.out.println(line);
+    public void write(Object msg) {
+        SystemIO.out.println(msg);
     }
 }
