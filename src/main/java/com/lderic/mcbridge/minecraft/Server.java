@@ -1,8 +1,8 @@
-package com.lderic.mcbridge.minecraft.server;
+package com.lderic.mcbridge.minecraft;
 
 import com.lderic.mcbridge.logging.Logger;
-import com.lderic.mcbridge.minecraft.text.Text;
-import com.lderic.mcbridge.minecraft.text.TextChain;
+import com.lderic.mcbridge.text.Text;
+import com.lderic.mcbridge.text.TextChain;
 
 public interface Server {
     Logger getLogger();
