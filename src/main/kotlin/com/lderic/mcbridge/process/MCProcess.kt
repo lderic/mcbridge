@@ -26,17 +26,21 @@ class MCProcess constructor(
         stdout = process.inputReader()
         var line: String?
         while (stdout.readLine().also { line = it } != null) {
-            logger.info(line)
+            if (line!!.split("/", limit = 2)[1].split("]", limit = 2)[0] == "WARN") {
+                logger.warn(line)
+            } else {
+                logger.info(line)
+            }
         }
         logger.info("Process ended")
         //TODO: handle process exit
     }
 
-    private val stderrThread: Thread = thread (name = "stderr", start = false) {
-        stderr = process.inputReader()
+    private val stderrThread: Thread = thread(name = "stderr", start = false) {
+        stderr = process.errorReader()
         var line: String?
         while (stderr.readLine().also { line = it } != null) {
-            logger.info(line)
+            logger.error(line)
         }
     }
 
