@@ -18,15 +18,17 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
+val mainClass = "com.lderic.mcbridge.MCBridge"
+
 tasks.jar {
     manifest {
-        attributes(Pair("Main-Class", "com.lderic.mcbridge.MCBridge"))
+        attributes(Pair("Main-Class", mainClass))
     }
 }
 
 tasks.shadowJar {
     manifest {
-        attributes(Pair("Main-Class", "com.lderic.mcbridge.MCBridge"))
+        attributes(Pair("Main-Class", mainClass))
     }
 }
 
