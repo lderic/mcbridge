@@ -8,7 +8,7 @@ import com.lderic.mcbridge.text.TextChain
 internal fun Text.handleMinecraftText(allowEvent: Boolean = true): String {
     val sb = StringBuilder()
     sb.append("{")
-    sb.append("\"text\":\"").append(this.asString()).append("\"")
+    sb.append("\"text\":\"").append(this.toString()).append("\"")
     if (this.isBold) {
         sb.append(",\"bold\":true")
     }
