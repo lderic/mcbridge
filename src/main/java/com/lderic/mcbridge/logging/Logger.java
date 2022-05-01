@@ -5,28 +5,6 @@ import com.lderic.mcbridge.text.Text;
 import com.lderic.mcbridge.text.TextChain;
 
 public interface Logger {
-    enum Level {
-        INFO("INFO", new Color(0x32CD32)),
-        WARN("WARN", new Color(0xFFD700)),
-        ERROR("ERROR", new Color(0xFF0000));
-
-        private final String name;
-        private final Color color;
-
-        Level(String name, Color color) {
-            this.name = name;
-            this.color = color;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public Color getColor() {
-            return color;
-        }
-    }
-
     void info(Text msg);
 
     void info(TextChain msg);
@@ -50,4 +28,40 @@ public interface Logger {
     void error(String msg);
 
     void error(Object msg);
+
+    enum Level {
+        INFO("INFO", new Color(0x32CD32)),
+        WARN("WARN", new Color(0xFFD700)),
+        ERROR("ERROR", new Color(0xFF0000));
+
+        private final String name;
+        private final Color color;
+
+        Level(String name, Color color) {
+            this.name = name;
+            this.color = color;
+        }
+
+        public static Level fromString(String name) {
+            switch (name.toUpperCase()) {
+                case "WARN" -> {
+                    return WARN;
+                }
+                case "ERROR" -> {
+                    return ERROR;
+                }
+                default -> {
+                    return INFO;
+                }
+            }
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Color getColor() {
+            return color;
+        }
+    }
 }

@@ -61,6 +61,10 @@ internal abstract class AbstractLogger(private val name: String) : Logger {
      */
     abstract fun pattern(logType: String): String
 
+    abstract fun getMessage(log: String): String
+
+    abstract fun getLogLevel(log: String): String
+
     private fun log(msg: String?, level: Logger.Level) {
         console.write(Text.of("[$name] ${pattern(level.name)} ${msg ?: "null"}").setColor(level.color))
     }

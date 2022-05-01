@@ -31,6 +31,7 @@ public class LoggerFactory {
         if (type == null) {
             return null;
         }
+        //TODO: Add more logger types
         switch (type) {
             default -> {
                 return new VanillaLogger(name);
