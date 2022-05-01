@@ -6,6 +6,8 @@ import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
 import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.terminal.Terminal;
+import org.jline.utils.AttributedString;
+import org.jline.utils.AttributedStyle;
 
 public class JLineHandler implements LineHandler {
     private final Terminal terminal;
@@ -19,6 +21,11 @@ public class JLineHandler implements LineHandler {
                 .completer(new StringsCompleter("say", "tell", "help", "stop", "exit"))
                 .appName(MCBridge.NAME)
                 .build();
+        lineReader.setOpt(LineReader.Option.ERASE_LINE_ON_FINISH);
+        lineReader.setOpt(LineReader.Option.CASE_INSENSITIVE_SEARCH);
+        lineReader.setOpt(LineReader.Option.DISABLE_EVENT_EXPANSION);
+        lineReader.unsetOpt(LineReader.Option.INSERT_TAB);
+        lineReader.unsetOpt(LineReader.Option.MOUSE);
     }
 
     @Override
@@ -34,8 +41,11 @@ public class JLineHandler implements LineHandler {
         return line;
     }
 
+    private final AttributedStyle defaultStyle = new AttributedStyle().foreground(0x4ee44e);
+
     @Override
     public void write(Object msg) {
-        lineReader.printAbove(msg.toString());
+        lineReader.printAbove(new AttributedString(msg.toString(), defaultStyle));
+//        lineReader.printAbove(msg.toString());
     }
 }
