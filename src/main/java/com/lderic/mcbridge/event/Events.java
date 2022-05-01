@@ -3,15 +3,19 @@ package com.lderic.mcbridge.event;
 import com.lderic.mcbridge.minecraft.Server;
 
 public class Events {
-    public final static EventHandler<PlayerEvent> PLAYER_JOIN = new EventHandler<>();
-    public final static EventHandler<PlayerEvent> PLAYER_LEAVE = new EventHandler<>();
-    public final static EventHandler<PlayerChatEvent> PLAYER_CHAT = new EventHandler<>();
-    public final static EventHandler<ServerLogEvent> SERVER_INFO = new EventHandler<>();
-    public final static EventHandler<ServerLogEvent> SERVER_WARNING = new EventHandler<>();
-    public final static EventHandler<Event> SERVER_INITIALIZING = new EventHandler<>();
-    public final static EventHandler<ServerRuntimeEvent> SERVER_STARTED = new EventHandler<>();
-    public final static EventHandler<Event> SERVER_STOPPED = new EventHandler<>();
-    public final static EventHandler<Event> SERVER_STOPPING = new EventHandler<>();
+    public final static EventHandler<PlayerEvent> PLAYER_JOIN = new EventHandlerImpl<>();
+    public final static EventHandler<PlayerEvent> PLAYER_LEAVE = new EventHandlerImpl<>();
+    public final static EventHandler<PlayerChatEvent> PLAYER_CHAT = new EventHandlerImpl<>();
+    public final static EventHandler<ServerLogEvent> SERVER_INFO = new EventHandlerImpl<>();
+    public final static EventHandler<ServerLogEvent> SERVER_WARNING = new EventHandlerImpl<>();
+    public final static EventHandler<Event> SERVER_INITIALIZING = new EventHandlerImpl<>();
+    public final static EventHandler<ServerRuntimeEvent> SERVER_STARTED = new EventHandlerImpl<>();
+    public final static EventHandler<Event> SERVER_STOPPED = new EventHandlerImpl<>();
+    public final static EventHandler<Event> SERVER_STOPPING = new EventHandlerImpl<>();
+
+    public static <E extends Event> void registerListener(EventHandler<E> handler, EventListener<E> listener) {
+        handler.registerListener(listener);
+    }
 
     public static class Event {
         private final long time;
@@ -27,6 +31,7 @@ public class Events {
 
     public static class ServerRuntimeEvent extends Event {
         private final Server server;
+
         ServerRuntimeEvent(Server server, long time) {
             super(time);
             this.server = server;
@@ -39,6 +44,7 @@ public class Events {
 
     public static class PlayerEvent extends ServerRuntimeEvent {
         private final String player;
+
         PlayerEvent(Server server, String player, long time) {
             super(server, time);
             this.player = player;
@@ -51,6 +57,7 @@ public class Events {
 
     public static class PlayerChatEvent extends PlayerEvent {
         private final String message;
+
         PlayerChatEvent(Server server, String player, String message, long time) {
             super(server, player, time);
             this.message = message;
@@ -63,6 +70,7 @@ public class Events {
 
     public static class ServerLogEvent extends ServerRuntimeEvent {
         private final String message;
+
         ServerLogEvent(Server server, String message, long time) {
             super(server, time);
             this.message = message;
