@@ -1,32 +1,15 @@
 package com.lderic.mcbridge.event
 
-import com.lderic.mcbridge.minecraft.VanillaServer
 import java.util.function.Consumer
 
-interface EventHandler<E : Event> {
-    fun onEvent(source: String)
+internal class EventHandler<E : Event> {
+    private val listeners = mutableListOf<Consumer<E>>()
 
-    fun registerListener(listener: Consumer<E>)
-}
+    fun onEvent(event: E) {
+        listeners.forEach { it.accept(event) }
+    }
 
-abstract class AbstractEventHandler<T : Event> : EventHandler<T> {
-    internal val listeners = mutableListOf<Consumer<T>>()
-
-    abstract override fun onEvent(source: String)
-
-    override fun registerListener(listener: Consumer<T>) {
+    fun registerListener(listener: Consumer<E>) {
         listeners.add(listener)
-    }
-}
-
-object PlayerJoinEventHandler : AbstractEventHandler<Events.PlayerJoinEvent>() {
-    override fun onEvent(source: String) {
-        listeners.forEach { it.accept(Events.PlayerJoinEvent(VanillaServer, source, System.currentTimeMillis())) }
-    }
-}
-
-object PlayerLeaveEventHandler : AbstractEventHandler<Events.PlayerLeaveEvent>() {
-    override fun onEvent(source: String) {
-        listeners.forEach { it.accept(Events.PlayerLeaveEvent(VanillaServer, source, System.currentTimeMillis())) }
     }
 }
