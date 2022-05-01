@@ -1,13 +1,13 @@
 package com.lderic.mcbridge.console;
 
 import com.lderic.mcbridge.MCBridge;
+import com.lderic.mcbridge.text.Text;
+import com.lderic.mcbridge.text.TextChain;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
 import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.terminal.Terminal;
-import org.jline.utils.AttributedString;
-import org.jline.utils.AttributedStyle;
 
 public class JLineHandler implements LineHandler {
     private final Terminal terminal;
@@ -41,11 +41,18 @@ public class JLineHandler implements LineHandler {
         return line;
     }
 
-    private final AttributedStyle defaultStyle = new AttributedStyle().foreground(0x4ee44e);
+    @Override
+    public void write(String msg) {
+        lineReader.printAbove(msg);
+    }
 
     @Override
-    public void write(Object msg) {
-        lineReader.printAbove(new AttributedString(msg.toString(), defaultStyle));
-//        lineReader.printAbove(msg.toString());
+    public void write(Text text) {
+        lineReader.printAbove(ConsoleTextHandler.handleConsoleText(text));
+    }
+
+    @Override
+    public void write(TextChain textChain) {
+        lineReader.printAbove(ConsoleTextHandler.handleConsoleText(textChain));
     }
 }

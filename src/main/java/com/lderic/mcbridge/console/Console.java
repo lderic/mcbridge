@@ -1,6 +1,8 @@
 package com.lderic.mcbridge.console;
 
 import com.lderic.mcbridge.MCBridge;
+import com.lderic.mcbridge.text.Text;
+import com.lderic.mcbridge.text.TextChain;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
@@ -24,8 +26,16 @@ public class Console {
         return INSTANCE;
     }
 
-    public void write(Object msg) {
+    public void write(String msg) {
         lineHandler.write(msg);
+    }
+
+    public void write(Text text) {
+        lineHandler.write(text);
+    }
+
+    public void write(TextChain textChain) {
+        lineHandler.write(textChain);
     }
 
     public String readLine() {
