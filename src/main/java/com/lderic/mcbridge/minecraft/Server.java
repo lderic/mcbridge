@@ -57,4 +57,11 @@ public interface Server {
     boolean isOp(String playerName);
 
     boolean isWhitelist(String playerName);
+
+    enum State {
+        INITIALIZING,
+        RUNNING,
+        STOPPING,
+        STOPPED
+    }
 }
