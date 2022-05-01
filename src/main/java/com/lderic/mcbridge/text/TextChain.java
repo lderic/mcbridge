@@ -1,4 +1,4 @@
-package com.lderic.mcbridge.minecraft.text;
+package com.lderic.mcbridge.text;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,18 +25,5 @@ public class TextChain implements Iterable<Text> {
     @Override
     public Iterator<Text> iterator() {
         return chain.iterator();
-    }
-
-    public String toJsonString() {
-        if (chain.isEmpty()) {
-            return "[]";
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append("[").append(chain.get(0).toJsonString());
-        for (int i = 1; i < chain.size(); i++) {
-            sb.append(",").append(chain.get(i).toJsonString());
-        }
-        sb.append("]");
-        return sb.toString();
     }
 }

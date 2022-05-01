@@ -1,6 +1,6 @@
 package com.lderic.mcbridge.event
 
-import com.lderic.mcbridge.minecraft.server.VanillaServer
+import com.lderic.mcbridge.minecraft.VanillaServer
 import java.util.function.Consumer
 
 interface EventHandler<E : Event> {

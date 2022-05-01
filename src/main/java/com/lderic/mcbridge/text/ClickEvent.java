@@ -1,4 +1,4 @@
-package com.lderic.mcbridge.minecraft.text;
+package com.lderic.mcbridge.text;
 
 public class ClickEvent {
     public enum Action {
@@ -27,7 +27,11 @@ public class ClickEvent {
         this.value = value;
     }
 
-    public String toJsonString() {
-        return "{\"action\":\"" + action.getActionName() + "\",\"value\":\"" + value + "\"}";
+    public Action getAction() {
+        return action;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

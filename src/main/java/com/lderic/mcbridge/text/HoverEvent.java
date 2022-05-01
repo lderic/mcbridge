@@ -1,4 +1,4 @@
-package com.lderic.mcbridge.minecraft.text;
+package com.lderic.mcbridge.text;
 
 public class HoverEvent {
     public enum Action {
@@ -43,8 +43,12 @@ public class HoverEvent {
         });
     }
 
-    public String toJsonString() {
-        return "{\"action\":\"" + action.getActionName() + "\",\"contents\":" + chain.toJsonString() + "}";
+    public Action getAction() {
+        return action;
+    }
+
+    public TextChain getChain() {
+        return chain;
     }
 }
 

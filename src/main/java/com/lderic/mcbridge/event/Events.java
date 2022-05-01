@@ -1,6 +1,6 @@
 package com.lderic.mcbridge.event;
 
-import com.lderic.mcbridge.minecraft.server.Server;
+import com.lderic.mcbridge.minecraft.Server;
 
 public class Events {
     public final static EventHandler<PlayerJoinEvent> PLAYER_JOIN = PlayerJoinEventHandler.INSTANCE;
