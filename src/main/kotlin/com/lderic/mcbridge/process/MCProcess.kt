@@ -93,7 +93,7 @@ class MCProcess constructor(
         }
     }
 
-    private fun logGame(log: String):Long {
+    private fun logGame(log: String): Long {
         val time = System.currentTimeMillis()
         MCBridge.logger as AbstractLogger
         val type = MCBridge.logger.getLogLevel(log)
@@ -104,7 +104,7 @@ class MCProcess constructor(
             logger.info(log)
             EventExecutor.on(Events.SERVER_INFO, Events.ServerLogEvent(server, log, time))
         }
-        return time;
+        return time
     }
 
     private fun handleRunningLog(log: String) {
@@ -157,4 +157,8 @@ class MCProcess constructor(
     }
 
     fun waitFor() = process.waitFor()
+
+    fun getVersion(): Version {
+        return version
+    }
 }
