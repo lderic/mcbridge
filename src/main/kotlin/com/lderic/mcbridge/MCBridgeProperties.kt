@@ -1,5 +1,6 @@
 package com.lderic.mcbridge
 
+import com.lderic.mcbridge.logging.InitLogger
 import com.lderic.mcbridge.util.MissingPropertyException
 import com.lderic.mcbridge.util.PropertiesHandler
 import java.io.File
@@ -16,11 +17,11 @@ object MCBridgeProperties {
 
     init {
         if (!handler.propertiesFile.exists()) {
-            MCBridge.logger.warn("$FILE_NAME not found, creating new one")
+            InitLogger.warn("$FILE_NAME not found, creating new one")
             handler.propertiesFile.createNewFile()
             handler.setProperty(SERVER_DIR, "server/")
             handler.setProperty(PLUGIN_DIR, "plugins/")
-            handler.setProperty(START_COMMAND, "java -Xms1G -Xmx2G -jar server.jar nogui")
+            handler.setProperty(START_COMMAND, "java -Xmx1024M -Xms1024M -jar server.jar nogui")
             handler.setProperty(SERVER_TYPE, "vanilla")
             handler.store()
             File(serverPath).also {
@@ -33,7 +34,7 @@ object MCBridgeProperties {
                     it.mkdirs()
                 }
             }
-            MCBridge.logger.info("Environment initialization completed, please add server file")
+            InitLogger.info("Environment initialization completed, please add server file")
             exitProcess(0)
         } else {
             requireExist()
