@@ -66,7 +66,15 @@ class MCProcess constructor(
         var line: String?
         while (stdout.readLine().also { line = it } != null) {
             logGame(line!!)
-            val rawLog = line!!.split("]: ", limit = 2)[1]
+            val rawLog = line!!.let {
+                it.split("]: ", limit = 2).let { list ->
+                    if (list.size == 2) {
+                        list[1]
+                    } else {
+                        it
+                    }
+                }
+            }
             if (rawLog.startsWith("Starting minecraft server version")) {
                 val version = rawLog.split(" ").last()
                 this.version = Version(version)
@@ -80,7 +88,7 @@ class MCProcess constructor(
         while (stdout.readLine().also { line = it } != null) {
             handleRunningLog(line!!)
         }
-        MCBridge.logger.info("Process ended")
+        MCBridge.logger.info("Minecraft stopped")
         state = State.STOPPED
         EventExecutor.on(Events.SERVER_STOPPED, Events.Event(System.currentTimeMillis()))
     }
@@ -96,13 +104,18 @@ class MCProcess constructor(
     private fun logGame(log: String): Long {
         val time = System.currentTimeMillis()
         MCBridge.logger as AbstractLogger
-        val type = MCBridge.logger.getLogLevel(log)
-        if (type == "WARN") {
-            logger.warn(log)
-            EventExecutor.on(Events.SERVER_WARNING, Events.ServerLogEvent(server, log, time))
-        } else {
-            logger.info(log)
-            EventExecutor.on(Events.SERVER_INFO, Events.ServerLogEvent(server, log, time))
+        when (MCBridge.logger.getLogLevel(log)) {
+            "WARN" -> {
+                logger.warn(log)
+                EventExecutor.on(Events.SERVER_WARNING, Events.ServerLogEvent(server, log, time))
+            }
+            "ERROR" -> {
+                logger.error(log)
+            }
+            else -> {
+                logger.info(log)
+                EventExecutor.on(Events.SERVER_INFO, Events.ServerLogEvent(server, log, time))
+            }
         }
         return time
     }
@@ -110,7 +123,15 @@ class MCProcess constructor(
     private fun handleRunningLog(log: String) {
         val time = logGame(log)
         MCProcessScope.launch {
-            val rawLog = log.split("]: ", limit = 2)[1]
+            val rawLog = log.let {
+                it.split("]: ", limit = 2).let { list ->
+                    if (list.size == 2) {
+                        list[1]
+                    } else {
+                        it
+                    }
+                }
+            }
             if (rawLog == "Stopping the server") {
                 state = State.STOPPING
                 EventExecutor.on(Events.SERVER_STOPPING, Events.Event(time))
