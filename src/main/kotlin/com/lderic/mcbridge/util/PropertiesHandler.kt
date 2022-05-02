@@ -9,14 +9,10 @@ class PropertiesHandler constructor(
     private val properties = Properties()
 
     init {
-//        logger.info("Loading properties from file: ${propertiesFile.absolutePath}")
         if (propertiesFile.exists()) {
             load()
-        } else {
-//            logger.warn("Properties file does not exist: ${propertiesFile.absolutePath}")
         }
         Runtime.getRuntime().addShutdownHook(Thread {
-//            logger.info("Saving properties to ${propertiesFile.absolutePath}")
             store()
         })
     }
@@ -36,17 +32,6 @@ class PropertiesHandler constructor(
     }
 
     fun getProperty(key: String): String? = properties.getProperty(key)
-
-    fun requireAllExist(vararg keys: String) {
-        for (key in keys) {
-            properties[key] ?: throw MissingPropertyException(key, propertiesFile)
-        }
-    }
-
-
-    companion object {
-        //private val logger: Logger = LoggerFactory.getLogger(PropertiesHandler::class.java)
-    }
 }
 
 class MissingPropertyException : Exception {
