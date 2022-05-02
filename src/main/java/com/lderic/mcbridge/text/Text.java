@@ -28,6 +28,20 @@ public class Text {
         return value;
     }
 
+    public Text use(Text text) {
+        this.isBold = text.isBold;
+        this.isItalic = text.isItalic;
+        this.isUnderlined = text.isUnderlined;
+        this.isStrikethrough = text.isStrikethrough;
+        this.isObfuscated = text.isObfuscated;
+        this.isInverse = text.isInverse;
+        this.color = text.color;
+        this.insertion = text.insertion;
+        this.clickEvent = text.clickEvent;
+        this.hoverEvent = text.hoverEvent;
+        return this;
+    }
+
     public boolean isBold() {
         return isBold;
     }
