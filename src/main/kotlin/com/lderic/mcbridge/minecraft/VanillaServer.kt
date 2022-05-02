@@ -1,5 +1,6 @@
 package com.lderic.mcbridge.minecraft
 
+import com.lderic.mcbridge.MCBridge
 import com.lderic.mcbridge.logging.Logger
 import com.lderic.mcbridge.logging.LoggerFactory
 import com.lderic.mcbridge.text.Text
@@ -11,35 +12,67 @@ internal object VanillaServer : Server {
     override fun getLogger(): Logger = serverLogger
 
     override fun broadcastMessage(message: String?) {
-        TODO("Not yet implemented")
+        broadcastMessage(Text(message))
     }
 
     override fun broadcastMessage(message: Text?) {
-        TODO("Not yet implemented")
+        message ?: return
+        MCBridge.getCurrentProcess().writeln("tellraw @a ${message.handleMinecraftText()}".let {
+            if (MCBridge.getCurrentProcess().getVersion() >= Version.MC1_13_0) {
+                it.addExecute()
+            } else {
+                it
+            }
+        })
     }
 
     override fun broadcastMessage(message: TextChain?) {
-        TODO("Not yet implemented")
+        message ?: return
+        MCBridge.getCurrentProcess().writeln("tellraw @a ${message.handleMinecraftText()}".let {
+            if (MCBridge.getCurrentProcess().getVersion() >= Version.MC1_13_0) {
+                it.addExecute()
+            } else {
+                it
+            }
+        })
     }
 
     override fun sendMessage(message: String?, player: String?) {
-        TODO("Not yet implemented")
+        message ?: return
+        sendMessage(Text(message), player)
     }
 
     override fun sendMessage(message: Text?, player: String?) {
-        TODO("Not yet implemented")
+        message ?: return
+        player ?: return
+        MCBridge.getCurrentProcess().writeln("tellraw @a ${message.handleMinecraftText()}".let {
+            if (MCBridge.getCurrentProcess().getVersion() >= Version.MC1_13_0) {
+                it.addExecute()
+            } else {
+                it
+            }
+        })
     }
 
     override fun sendMessage(message: TextChain?, player: String?) {
-        TODO("Not yet implemented")
+        message ?: return
+        player ?: return
+        MCBridge.getCurrentProcess().writeln("tellraw @a ${message.handleMinecraftText()}".let {
+            if (MCBridge.getCurrentProcess().getVersion() >= Version.MC1_13_0) {
+                it.addExecute()
+            } else {
+                it
+            }
+        })
     }
 
     override fun send(command: String?) {
-        TODO("Not yet implemented")
+        command ?: return
+        MCBridge.getCurrentProcess().writeln(command)
     }
 
     override fun getCurrentPlayers(): Int {
-        TODO("Not yet implemented")
+        TODO()
     }
 
     override fun getMaxPlayers(): Int {
@@ -47,15 +80,18 @@ internal object VanillaServer : Server {
     }
 
     override fun kickPlayer(playerName: String?, reason: String?) {
-        TODO("Not yet implemented")
+        playerName ?: return
+        MCBridge.getCurrentProcess().writeln("kick $playerName".let { if (reason != null) "$it $reason" else it })
     }
 
     override fun banPlayer(playerName: String?, reason: String?) {
-        TODO("Not yet implemented")
+        playerName ?: return
+        MCBridge.getCurrentProcess().writeln("ban $playerName".let { if (reason != null) "$it $reason" else it })
     }
 
     override fun pardonPlayer(playerName: String?) {
-        TODO("Not yet implemented")
+        playerName ?: return
+        MCBridge.getCurrentProcess().writeln("pardon $playerName")
     }
 
     override fun start() {
@@ -75,11 +111,13 @@ internal object VanillaServer : Server {
     }
 
     override fun op(playerName: String?) {
-        TODO("Not yet implemented")
+        playerName ?: return
+        MCBridge.getCurrentProcess().writeln("op $playerName")
     }
 
     override fun deop(playerName: String?) {
-        TODO("Not yet implemented")
+        playerName ?: return
+        MCBridge.getCurrentProcess().writeln("deop $playerName")
     }
 
     override fun isOp(playerName: String?): Boolean {
@@ -88,5 +126,9 @@ internal object VanillaServer : Server {
 
     override fun isWhitelist(playerName: String?): Boolean {
         TODO("Not yet implemented")
+    }
+
+    private fun String.addExecute(): String {
+        return "execute at @p run $this"
     }
 }
