@@ -12,6 +12,10 @@ internal class VanillaLogger constructor(name: String) : AbstractLogger(name) {
     }
 
     override fun getLogLevel(log: String): String {
-        return log.split("]: ")[0].split("/")[1]
+        return try {
+            log.split("]: ")[0].split("/")[1]
+        }catch (e:Exception) {
+            "INFO"
+        }
     }
 }
