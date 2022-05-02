@@ -2,6 +2,7 @@ package com.lderic.mcbridge.text;
 
 public class Text {
     public static final Text NULL = new Text("null");
+    public static final Text NEW_LINE = new Text("\\n");
     private final String value;
     private boolean isBold = false;
     private boolean isItalic = false;
