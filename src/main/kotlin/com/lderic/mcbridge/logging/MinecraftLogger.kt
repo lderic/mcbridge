@@ -15,7 +15,7 @@ object MinecraftLogger : Logger {
     }
 
     override fun info(msg: String?) {
-        info(Text("[Minecraft] $msg").setColor(Logger.Level.INFO.color))
+        info(Text("[Minecraft] $msg").use(Logger.Level.INFO.text))
     }
 
     override fun info(msg: Any?) {
@@ -31,7 +31,7 @@ object MinecraftLogger : Logger {
     }
 
     override fun warn(msg: String?) {
-        warn(Text("[Minecraft] $msg").setColor(Logger.Level.WARN.color))
+        warn(Text("[Minecraft] $msg").use(Logger.Level.WARN.text))
     }
 
     override fun warn(msg: Any?) {
@@ -47,7 +47,7 @@ object MinecraftLogger : Logger {
     }
 
     override fun error(msg: String?) {
-        error(Text("[Minecraft] $msg").setColor(Logger.Level.ERROR.color))
+        error(Text("[Minecraft] $msg").use(Logger.Level.ERROR.text))
     }
 
     override fun error(msg: Any?) {
