@@ -1,5 +1,6 @@
 package com.lderic.mcbridge.util
 
+import com.lderic.mcbridge.logging.InitLogger
 import java.io.File
 import java.util.*
 
@@ -11,6 +12,9 @@ class PropertiesHandler constructor(
     init {
         if (propertiesFile.exists()) {
             load()
+            InitLogger.info("Loading properties ${propertiesFile.name}")
+        }else {
+            InitLogger.warn("Properties file does not exist")
         }
         Runtime.getRuntime().addShutdownHook(Thread {
             store()
