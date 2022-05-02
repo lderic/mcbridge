@@ -27,10 +27,6 @@ public class MCBridge {
         Plugins.reload();
         logger.info("Starting server...");
         currentProcess = ProcessFactory.launchMinecraft();
-        if (currentProcess == null) {
-            logger.error("Failed to start Minecraft server!");
-            return;
-        }
         Thread reader = new Thread(() -> {
             Console console = Console.getInstance();
             String line;
@@ -47,6 +43,7 @@ public class MCBridge {
 
             }
         });
+        reader.setDaemon(true);
         reader.start();
         currentProcess.start();
     }
