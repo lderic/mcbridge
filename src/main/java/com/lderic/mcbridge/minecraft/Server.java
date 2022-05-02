@@ -1,5 +1,6 @@
 package com.lderic.mcbridge.minecraft;
 
+import com.lderic.mcbridge.MCBridgeProperties;
 import com.lderic.mcbridge.logging.Logger;
 import com.lderic.mcbridge.text.Text;
 import com.lderic.mcbridge.text.TextChain;
@@ -63,5 +64,15 @@ public interface Server {
         RUNNING,
         STOPPING,
         STOPPED
+    }
+
+    static Server selectServer() {
+        String type = MCBridgeProperties.INSTANCE.getServerType();
+        // TODO: Implement other server types
+        switch (type) {
+            default -> {
+                return VanillaServer.INSTANCE;
+            }
+        }
     }
 }
