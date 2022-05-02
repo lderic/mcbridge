@@ -26,7 +26,7 @@ public class LoggerFactory {
         if (name.equals("Minecraft")) {
             return MinecraftLogger.INSTANCE;
         }
-        String type = MCBridgeProperties.INSTANCE.getLoggerPatternType();
+        String type = MCBridgeProperties.INSTANCE.getServerType();
 
         if (type == null) {
             return null;
