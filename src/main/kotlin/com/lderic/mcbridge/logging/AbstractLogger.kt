@@ -66,29 +66,29 @@ internal abstract class AbstractLogger(private val name: String) : Logger {
     abstract fun getLogLevel(log: String): String
 
     private fun log(msg: String?, level: Logger.Level) {
-        console.write(Text.of("[$name] ${pattern(level.name)} ${msg ?: "null"}").setColor(level.color))
+        console.write(Text.of("[$name] ${pattern(level.name)} ${msg ?: "null"}").use(level.text))
     }
 
     private fun log(msg: Text?, level: Logger.Level) {
         if (msg?.hasColor() == true) {
-            console.write(TextChain.of(Text("[$name] ${pattern(level.name)} ").setColor(level.color), msg))
+            console.write(TextChain.of(Text("[$name] ${pattern(level.name)} ").use(level.text), msg))
         } else {
-            console.write(Text("[$name] ${pattern(level.name)} ${msg?.toString() ?: "null"}").setColor(level.color))
+            console.write(Text("[$name] ${pattern(level.name)} ${msg?.toString() ?: "null"}").use(level.text))
         }
     }
 
     private fun log(msg: TextChain?, level: Logger.Level) {
         if (msg == null) {
-            console.write(Text("[$name] ${pattern(level.name)} null").setColor(level.color))
+            console.write(Text("[$name] ${pattern(level.name)} null").use(level.text))
         } else {
             msg.forEach {
                 if (!it.hasColor()) {
-                    it.color = level.color
+                    it.color = level.text.color
                 }
             }
             console.write(
                 TextChain()
-                    .append(Text("[$name] ${pattern(level.name)} ").setColor(level.color))
+                    .append(Text("[$name] ${pattern(level.name)} ").use(level.text))
                     .append(msg)
             )
         }

@@ -30,16 +30,14 @@ public interface Logger {
     void error(Object msg);
 
     enum Level {
-        INFO("INFO", new Color(0x32CD32)),
-        WARN("WARN", new Color(0xFFD700)),
-        ERROR("ERROR", new Color(0xFF0000));
+        INFO(new Text("INFO").setColor(new Color(0x48BB31))),
+        WARN(new Text("WARN").setColor(new Color(0xBBBB23))),
+        ERROR(new Text("ERROR").setColor(new Color(0xFF0006)));
 
-        private final String name;
-        private final Color color;
+        private final Text text;
 
-        Level(String name, Color color) {
-            this.name = name;
-            this.color = color;
+        Level(Text text) {
+            this.text = text;
         }
 
         public static Level fromString(String name) {
@@ -57,11 +55,11 @@ public interface Logger {
         }
 
         public String getName() {
-            return name;
+            return text.toString();
         }
 
-        public Color getColor() {
-            return color;
+        public Text getText() {
+            return text;
         }
     }
 }
