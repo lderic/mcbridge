@@ -23,4 +23,8 @@ class Version(private val version: String) {
     override fun toString(): String {
         return version
     }
+
+    companion object {
+        val MC1_13_0 = Version("1.13.0")
+    }
 }
